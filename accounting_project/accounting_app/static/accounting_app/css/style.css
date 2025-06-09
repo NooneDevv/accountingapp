@@ -1,0 +1,17 @@
+.t-account-table > thead > tr > th {
+    width: 50%;
+    font-size:10px;
+    background-color: bisque;
+}
+.transaction-row {
+    font-size:14px;
+    
+}
+
+.highlight {
+    font-weight: bold;
+}
+.highlight td{
+    background-color: rgb(130, 208, 236); 
+    font-weight: bold;
+}

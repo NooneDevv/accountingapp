@@ -1,0 +1,64 @@
+<div class="card">
+    <div class="card-header text-center">
+        <strong>{{ account.name }}</strong>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-sm table-bordered t-account-table mb-0">
+            <thead>
+                <tr>
+                    <th class="text-center">Wn (+)</th>
+                    <th class="text-center">Ma (-)</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                    <td class="p-0 align-top">
+                        <table class="table table-borderless table-sm mb-0">
+                            {% for trans in account.debit_transactions.all %}
+                                <tr class="transaction-row" data-transaction-id="{{ trans.transaction_id }}">
+                                    <td data-transaction-id="{{ trans.transaction_id }}" title="{{ trans.date }} {{ trans.credit_account.name|truncatechars:10 }}">{{ trans.transaction_id }})</td>
+                                    <td data-transaction-id="{{ trans.transaction_id }}">{{ trans.date|date:"d.m.y" }}</td>
+                                    <td class="text-end" data-transaction-id="{{ trans.transaction_id }}">{{ trans.amount|floatformat:2 }}</td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                    </td>
+                    <td class="p-0 align-top">
+                        <table class="table table-borderless table-sm mb-0">
+                           {% for trans in account.credit_transactions.all %}
+                                <tr class="transaction-row" data-transaction-id="{{ trans.transaction_id }}">
+                                    <td title="{{ trans.date }} {{ trans.credit_account.name|truncatechars:10 }}">{{ trans.transaction_id|truncatechars:10 }})</td>
+                                    <td class="text-end">{{ trans.amount|floatformat:2 }}</td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                    </td>
+                    <tr style="height:60px; border:none;"><td style="border:none;"></td><td style="border:none;"></td></tr>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="table-group-divider">
+                    <td class="p-1">
+                        <table class="table-borderless mb-0"><tr>
+                            <td><strong>Total:</strong></td>
+                            <td class="text-end"><strong>{{ account.debit_total|floatformat:2 }}</strong></td>
+                        </tr></table>
+                    </td>
+                    <td class="p-1">
+                        <table class="table-borderless mb-0"><tr>
+                            <td><strong>Total:</strong></td>
+                            <td class="text-end"><strong>{{ account.credit_total|floatformat:2 }}</strong></td>
+                        </tr></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center p-1">
+                        <strong>Balance: {{ account.balance|floatformat:2 }}</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

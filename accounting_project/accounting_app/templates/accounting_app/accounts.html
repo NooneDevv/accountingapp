@@ -1,0 +1,24 @@
+{% extends 'accounting_app/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Accounts</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addTransactionModal">
+            Add Transaction
+        </button>
+    </div>
+</div>
+
+{% for account_type, data in grouped_accounts.items %}
+    <h3 class="mt-4">{{ data.verbose_name }}</h3>
+    <div class="row">
+        {% for account in data.accounts %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                {% include 'accounting_app/partials/_t_account.html' with account=account %}
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+{% endblock %}
