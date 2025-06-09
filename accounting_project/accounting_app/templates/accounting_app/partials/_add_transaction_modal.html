@@ -1,5 +1,5 @@
 <div class="modal fade" id="addTransactionModal" tabindex="-1" aria-labelledby="addTransactionModalLabel" aria-hidden="true" data-balance-url="{% url 'get_account_balance' %}">
-  <div class="modal-dialog modal-lg"> {# Increased modal size for better layout #}
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="addTransactionModalLabel">Add New Transaction</h1>
@@ -12,7 +12,7 @@
             <label for="{{ transaction_form.debit_account.id_for_label }}" class="col-sm-3 col-form-label">Debit Account (Wn):</label>
             <div class="col-sm-9">
               {{ transaction_form.debit_account }}
-              <div id="debitAccountFunds" class="form-text mt-1"></div> {# Placeholder for available funds #}
+              <div id="debitAccountFunds" class="form-text mt-1"></div>
             </div>
           </div>
           <div class="mb-3 row">

@@ -1,4 +1,4 @@
-<div class="card mb-3"> {# Added mb-3 for spacing between T-account cards #}
+<div class="card mb-3">
     <div class="card-header text-center">
         <strong class="account-header">{{ account.name }}</strong>
     </div>
@@ -6,8 +6,8 @@
         <table class="table table-sm table-bordered t-account-table mb-0">
             <thead>
                 <tr>
-                    <th class="text-center">Debits (+)</th> {# Clarified header text #}
-                    <th class="text-center">Credits (-)</th> {# Clarified header text #}
+                    <th class="text-center">Debits (+)</th>
+                    <th class="text-center">Credits (-)</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,7 +20,7 @@
                                     <td class="text-end" data-transaction-id="{{ trans.transaction_id }}">{{ trans.amount|floatformat:2 }}</td>
                                 </tr>
                             {% empty %}
-                                <tr><td colspan="2" class="text-center text-muted small p-2">No debit transactions</td></tr> {# Added message for empty state #}
+                                <tr><td colspan="2" class="text-center text-muted small p-2">No debit transactions</td></tr>
                             {% endfor %}
                         </table>
                     </td>
@@ -32,7 +32,7 @@
                                     <td class="text-end">{{ trans.amount|floatformat:2 }}</td>
                                 </tr>
                             {% empty %}
-                                <tr><td colspan="2" class="text-center text-muted small p-2">No credit transactions</td></tr> {# Added message for empty state #}
+                                <tr><td colspan="2" class="text-center text-muted small p-2">No credit transactions</td></tr>
                             {% endfor %}
                         </table>
                     </td>
@@ -42,19 +42,19 @@
                 <tr class="table-group-divider">
                     <td class="p-0">
                         <table class="table-borderless table-sm mb-0"><tr>
-                            <td class="ps-2">Total Debits:</td> {# Added padding-start #}
-                            <td class="text-end pe-2">{{ account.debit_total|floatformat:2 }}</td> {# Added padding-end #}
+                            <td class="ps-2">Total Debits:</td>
+                            <td class="text-end pe-2">{{ account.debit_total|floatformat:2 }}</td>
                         </tr></table>
                     </td>
                     <td class="p-0">
                         <table class="table-borderless table-sm mb-0"><tr>
-                            <td class="ps-2">Total Credits:</td> {# Added padding-start #}
-                            <td class="text-end pe-2">{{ account.credit_total|floatformat:2 }}</td> {# Added padding-end #}
+                            <td class="ps-2">Total Credits:</td>
+                            <td class="text-end pe-2">{{ account.credit_total|floatformat:2 }}</td>
                         </tr></table>
                     </td>
                 </tr>
-                <tr class="table-secondary"> {# Added class for visual distinction of balance row #}
-                    <td colspan="2" class="text-center p-1 fw-bold"> {# Added padding, font-weight #}
+                <tr class="table-secondary">
+                    <td colspan="2" class="text-center p-1 fw-bold">
                         Balance: {{ account.balance|floatformat:2 }}
                     </td>
                 </tr>

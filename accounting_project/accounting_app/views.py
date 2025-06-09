@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Sum
 from .models import Account, Transaction
 from .forms import TransactionForm, BalanceSheetDateForm
 from datetime import date
 from django.utils import timezone
-from django.http import JsonResponse # Added for the new view
+from django.http import JsonResponse
 
 def accounts_view(request):
     accounts = Account.objects.all().order_by('name')
@@ -18,7 +18,6 @@ def accounts_view(request):
         debit_total = account.debit_transactions.aggregate(total=Sum('amount'))['total'] or 0
         credit_total = account.credit_transactions.aggregate(total=Sum('amount'))['total'] or 0
         
-        # Attach calculated values directly to the account object for the template
         account.debit_total = debit_total
         account.credit_total = credit_total
         account.balance = account.get_balance()
@@ -33,7 +32,6 @@ def accounts_view(request):
 
 def transaction_history_view(request):
     transactions = Transaction.objects.all().order_by('-date')
-    # formatted_date = now.strftime("%d. %b %y")
     context = {
         'transactions': transactions
     }
@@ -99,17 +97,15 @@ def add_transaction_view(request):
         form = TransactionForm(request.POST)
         if form.is_valid():
             form.save()
-    return redirect('accounts') # Redirect back to the accounts page
+    return redirect('accounts')
 
 def get_account_balance_view(request):
     account_id = request.GET.get('account_id')
-    balance = 0
-    account_name = ""
-    if account_id:
-        try:
-            account = Account.objects.get(pk=account_id)
-            balance = account.get_balance()
-            account_name = account.name
-        except Account.DoesNotExist:
-            return JsonResponse({'error': 'Account not found'}, status=404)
-    return JsonResponse({'account_id': account_id, 'balance': balance, 'account_name': account_name})
+    if not account_id:
+        return JsonResponse({'error': 'Account ID not provided'}, status=400)
+    try:
+        account = get_object_or_404(Account, pk=account_id)
+        balance = account.get_balance()
+        return JsonResponse({'balance': balance})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

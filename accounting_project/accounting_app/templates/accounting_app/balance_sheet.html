@@ -9,7 +9,7 @@
     {% csrf_token %}
     <div class="col-md-4">
         <label for="{{ form.end_date.id_for_label }}" class="form-label">Data bilansu:</label>
-        {{ form.end_date }} {# Assuming form.end_date renders with appropriate Bootstrap classes e.g. form-control #}
+        {{ form.end_date }}
     </div>
     <div class="col-md-auto">
         <button type="submit" class="btn btn-primary">
@@ -29,7 +29,6 @@
     </div>
     <div class="card-body">
         <div class="row mt-2">
-            <!-- AKTYWA -->
             <div class="col-md-6">
                 <h4 class="text-center table-group-divider py-2">AKTYWA</h4>
                 <table class="table table-sm table-bordered table-hover">
@@ -94,7 +93,6 @@
                 </table>
             </div>
 
-            <!-- PASYWA -->
             <div class="col-md-6">
                 <h4 class="text-center table-group-divider py-2">PASYWA</h4>
                 <table class="table table-sm table-bordered table-hover">
@@ -151,7 +149,7 @@
         <div class="alert alert-info mt-4" role="alert">
             Brak danych bilansu dla wybranej daty.
         </div>
-    {% else %} {# Initial page load, no date selected yet #}
+    {% else %}
         <div class="alert alert-secondary mt-4" role="alert">
             Wybierz datę, aby wygenerować bilans.
         </div>

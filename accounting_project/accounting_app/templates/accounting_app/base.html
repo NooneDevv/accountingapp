@@ -16,12 +16,10 @@
     </header>
 
     <div class="app-container d-flex">
-        <!-- Sidebar -->
         <aside class="app-sidebar d-flex flex-column flex-shrink-0 p-3 bg-light">
             {% include 'accounting_app/partials/_sidebar.html' %}
         </aside>
 
-        <!-- Main Content -->
         <main class="app-main flex-grow-1 p-4">
             {% block content %}{% endblock %}
         </main>

@@ -23,23 +23,20 @@ document.addEventListener('DOMContentLoaded', function() {
         matchingRows.forEach(match => {
             if (add) {
                 match.classList.add('highlight');
-                // match.style.backgroundColor = 'grey'; // Light blue background
-                // match.backgroundColor = '#f0f8ff'; // Light blue background
             } else {
                 match.classList.remove('highlight');
             }
         });
     }
 
-    // New functionality for Add Transaction Modal
     const addTransactionModal = document.getElementById('addTransactionModal');
     if (addTransactionModal) {
-        const debitAccountSelect = addTransactionModal.querySelector('#id_debit_account'); // Django default ID
+        const debitAccountSelect = addTransactionModal.querySelector('#id_debit_account');
         const debitAccountFundsDiv = addTransactionModal.querySelector('#debitAccountFunds');
-        const balanceUrl = addTransactionModal.dataset.balanceUrl; // Get URL from data attribute
+        const balanceUrl = addTransactionModal.dataset.balanceUrl;
 
         function fetchAndDisplayBalance(accountId) {
-            if (!accountId || !balanceUrl) { // Also check if balanceUrl is available
+            if (!accountId || !balanceUrl) {
                 debitAccountFundsDiv.innerHTML = '';
                 return;
             }
@@ -60,12 +57,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (debitAccountSelect && debitAccountFundsDiv) {
-            // Event listener for when the debit account selection changes
             debitAccountSelect.addEventListener('change', function() {
                 fetchAndDisplayBalance(this.value);
             });
 
-            // Event listener for when the modal is shown, to load initial balance
             addTransactionModal.addEventListener('shown.bs.modal', function () {
                 fetchAndDisplayBalance(debitAccountSelect.value);
             });

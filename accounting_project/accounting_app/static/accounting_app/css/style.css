@@ -1,19 +1,17 @@
-/* Global Styles */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #f8f9fa; /* Light gray background */
+    background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
 .app-container {
-    flex: 1; /* Allows main content to grow and push footer down */
+    flex: 1;
 }
 
-/* Header */
 .app-header {
     margin-bottom: 1rem;
 }
@@ -23,36 +21,32 @@ body {
     margin-bottom: 0;
 }
 
-/* Sidebar */
 .app-sidebar {
     width: 280px;
-    min-height: calc(100vh - 56px - 1rem); /* Adjust based on header height and margin */
+    min-height: calc(100vh - 56px - 1rem);
     border-right: 1px solid #dee2e6;
 }
 
-/* Main Content */
 .app-main {
-    background-color: #fff; /* White background for content area */
+    background-color: #fff;
     border-radius: 0.25rem;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
-/* Footer */
 .app-footer {
     font-size: 0.9rem;
     color: #6c757d;
     border-top: 1px solid #dee2e6;
 }
 
-/* T-Account Table */
 .t-account-table {
     margin-bottom: 1.5rem;
 }
 
 .t-account-table > thead > tr > th {
     width: 50%;
-    font-size: 0.85rem; /* Slightly adjusted font size */
-    background-color: #e9ecef; /* Lighter, neutral background */
+    font-size: 0.85rem;
+    background-color: #e9ecef;
     color: #495057;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -63,9 +57,8 @@ body {
     font-size: 0.9rem;
 }
 
-/* Transaction Row */
 .transaction-row {
-    font-size: 0.9rem; /* Consistent font size */
+    font-size: 0.9rem;
 }
 
 .highlight {
@@ -73,24 +66,21 @@ body {
 }
 
 .highlight td {
-    background-color: #cfe2ff; /* Bootstrap info background color for highlighting */
+    background-color: #cfe2ff;
     font-weight: bold;
 }
 
-/* Recent Transactions */
 .recenttx {
     color: #212529;
-    font-size: 0.875rem; /* Slightly adjusted font size */
+    font-size: 0.875rem;
 }
 
-/* Account Header in tables/lists */
 .account-header {
-    font-size: 0.9rem; /* Slightly adjusted font size */
-    font-weight: 600; /* Bolder */
-    color: #007bff; /* Primary color for emphasis */
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #007bff;
 }
 
-/* Utility Classes */
 .mb-3 {
     margin-bottom: 1rem !important;
 }
@@ -103,7 +93,6 @@ body {
     padding: 1rem !important;
 }
 
-/* Style for links in sidebar to make them more prominent */
 .app-sidebar .nav-link {
     color: #007bff;
 }
@@ -118,7 +107,6 @@ body {
     color: #0056b3;
 }
 
-/* Modal Styling */
 .modal-header {
     background-color: #f8f9fa;
     border-bottom: 1px solid #dee2e6;
@@ -128,7 +116,6 @@ body {
     color: #343a40;
 }
 
-/* Button styling */
 .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
@@ -149,25 +136,23 @@ body {
     border-color: #545b62;
 }
 
-/* Styling for Available Funds in Add Transaction Modal */
 #debitAccountFunds {
-    font-size: 0.875em; /* Slightly smaller than normal form text */
-    font-weight: 500; /* Medium weight */
+    font-size: 0.875em;
+    font-weight: 500;
     padding: 0.25rem 0.5rem;
     border-radius: 0.2rem;
-    margin-top: 0.25rem !important; /* Ensure consistent margin */
+    margin-top: 0.25rem !important;
 }
 
 #debitAccountFunds .text-danger,
 #debitAccountFunds .text-success {
-    font-weight: 700; /* Bolder for the actual amount */
+    font-weight: 700;
 }
 
-/* Ensure form elements in modal have consistent spacing */
 .modal-body .mb-3.row {
-    align-items: center; /* Vertically align label and control in row layout */
+    align-items: center;
 }
 
 .modal-body .form-label {
-    margin-bottom: 0; /* Remove default bottom margin for labels in row layout */
+    margin-bottom: 0;
 }
