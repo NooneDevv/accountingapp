@@ -12,7 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
         row.addEventListener('mouseout', function() {
             const transactionId = this.dataset.transactionId;
             if (transactionId) {
-                highlightTransaction(transactionId, false);
+
+                setTimeout(() => { highlightTransaction(transactionId, false); }, 500);
+                // setTimeout(function(){
+                    
+                // },2000);
             }
         });
     });
@@ -23,9 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
         matchingRows.forEach(match => {
             if (add) {
                 match.classList.add('highlight');
-                // match.style.backgroundColor = 'grey'; // Light blue background
-                // match.backgroundColor = '#f0f8ff'; // Light blue background
             } else {
+                setTimeout(2000);
                 match.classList.remove('highlight');
             }
         });

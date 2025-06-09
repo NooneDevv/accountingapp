@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card mb-3">
     <div class="card-header text-center">
         <strong class="account-header">{{ account.name }}</strong>
     </div>
@@ -6,8 +6,8 @@
         <table class="table table-sm table-bordered t-account-table mb-0">
             <thead>
                 <tr>
-                    <th class="text-center">Wn (+)</th>
-                    <th class="text-center">Ma (-)</th>
+                    <th class="text-center">Debits (+ Wn )</th>
+                    <th class="text-center">Credits (- Ma )</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,8 +19,9 @@
                                     <td data-transaction-id="{{ trans.transaction_id }}" title="{{ trans.date }} {{ trans.debit_account.name|truncatechars:10 }}">({{ trans.date|date:"d.m" }}) {{ trans.transaction_id }})</td>
                                     <td class="text-end" data-transaction-id="{{ trans.transaction_id }}">{{ trans.amount|floatformat:2 }}</td>
                                 </tr>
+                            {% comment %} {% empty %}
+                                <tr><td colspan="2" class="text-center text-muted small p-2">No debit transactions</td></tr> {% endcomment %}
                             {% endfor %}
-
                         </table>
                     </td>
                     <td class="p-0 align-top">
@@ -30,31 +31,32 @@
                                     <td data-transaction-id="{{ trans.transaction_id }}" title="{{ trans.date }} {{ trans.credit_account.name|truncatechars:10 }}">({{ trans.date|date:"d.m" }}) {{ trans.transaction_id }})</td>
                                     <td class="text-end">{{ trans.amount|floatformat:2 }}</td>
                                 </tr>
+                            {% comment %}{% empty %}
+                            
+                                <tr><td colspan="2" class="text-center text-muted small p-2">No credit transactions</td></tr> {% endcomment %}
                             {% endfor %}
-
                         </table>
                     </td>
-                    <tr style="height:60px; border:none;"><td style="border:none;"></td><td style="border:none;"></td></tr>
                 </tr>
             </tbody>
             <tfoot>
                 <tr class="table-group-divider">
                     <td class="p-0">
-                        <table class="table-borderless mb-0"><tr>
-                            <td>Total:</td>
-                            <td class="text-end">{{ account.debit_total|floatformat:2 }}</td>
+                        <table class="table-borderless table-sm mb-0"><tr>
+                            <td class="ps-2">Total:</td>
+                            <td class="text-end pe-2">{{ account.debit_total|floatformat:2 }}</td>
                         </tr></table>
                     </td>
                     <td class="p-0">
-                        <table class="table-borderless mb-0"><tr>
-                            <td>Total:</td>
-                            <td class="text-end">{{ account.credit_total|floatformat:2 }}</td>
+                        <table class="table-borderless table-sm mb-0"><tr>
+                            <td class="ps-2">Total:</td>
+                            <td class="text-end pe-2">{{ account.credit_total|floatformat:2 }}</td>
                         </tr></table>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2" class="text-center p-0">
-                        <strong>Balance: {{ account.balance|floatformat:2 }}</strong>
+                <tr class="table-secondary">
+                    <td colspan="2" class="text-center p-1 fw-bold">
+                        Balance: {{ account.balance|floatformat:2 }}
                     </td>
                 </tr>
             </tfoot>
