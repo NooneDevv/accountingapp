@@ -30,4 +30,45 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // New functionality for Add Transaction Modal
+    const addTransactionModal = document.getElementById('addTransactionModal');
+    if (addTransactionModal) {
+        const debitAccountSelect = addTransactionModal.querySelector('#id_debit_account'); // Django default ID
+        const debitAccountFundsDiv = addTransactionModal.querySelector('#debitAccountFunds');
+        const balanceUrl = addTransactionModal.dataset.balanceUrl; // Get URL from data attribute
+
+        function fetchAndDisplayBalance(accountId) {
+            if (!accountId || !balanceUrl) { // Also check if balanceUrl is available
+                debitAccountFundsDiv.innerHTML = '';
+                return;
+            }
+            
+            fetch(`${balanceUrl}?account_id=${accountId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        debitAccountFundsDiv.innerHTML = `<span class="text-danger">Error: ${data.error}</span>`;
+                    } else {
+                        debitAccountFundsDiv.innerHTML = `Available funds: <strong class="${data.balance < 0 ? 'text-danger' : 'text-success'}">${parseFloat(data.balance).toFixed(2)} PLN</strong>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching account balance:', error);
+                    debitAccountFundsDiv.innerHTML = '<span class="text-danger">Could not fetch balance.</span>';
+                });
+        }
+
+        if (debitAccountSelect && debitAccountFundsDiv) {
+            // Event listener for when the debit account selection changes
+            debitAccountSelect.addEventListener('change', function() {
+                fetchAndDisplayBalance(this.value);
+            });
+
+            // Event listener for when the modal is shown, to load initial balance
+            addTransactionModal.addEventListener('shown.bs.modal', function () {
+                fetchAndDisplayBalance(debitAccountSelect.value);
+            });
+        }
+    }
 });

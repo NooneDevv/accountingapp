@@ -1,51 +1,38 @@
-<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-    <span class="fs-4">Accounting Menu</span>
+<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none text-dark">
+    <span class="fs-5">Navigation</span> {# Changed title to "Navigation" and adjusted font size #}
 </a>
 <hr>
 <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-        <a href="{% url 'accounts' %}" class="nav-link {% if request.resolver_match.url_name == 'accounts' %}active{% else %}link-dark{% endif %}">
+        <a href="{% url 'accounts' %}" class="nav-link {% if request.resolver_match.url_name == 'accounts' %}active{% endif %}">
             Accounts
         </a>
     </li>
-    <li>
-        <a href="{% url 'transaction_history' %}" class="nav-link {% if request.resolver_match.url_name == 'transaction_history' %}active{% else %}link-dark{% endif %}">
+    <li class="nav-item"> {# Added nav-item class for consistency #}
+        <a href="{% url 'transaction_history' %}" class="nav-link {% if request.resolver_match.url_name == 'transaction_history' %}active{% endif %}">
             Transaction History
         </a>
     </li>
-    <li>
-        <a href="{% url 'balance_sheet' %}" class="nav-link {% if request.resolver_match.url_name == 'balance_sheet' %}active{% else %}link-dark{% endif %}">
+    <li class="nav-item"> {# Added nav-item class for consistency #}
+        <a href="{% url 'balance_sheet' %}" class="nav-link {% if request.resolver_match.url_name == 'balance_sheet' %}active{% endif %}">
             Balance Sheet
         </a>
     </li>
-    <li>
-        <strong>Recent Transactions</strong>
-        <ul class="recenttx nav nav-pills flex-column mb-auto">
+    <li class="nav-item mt-3"> {# Added nav-item class and margin-top #}
+        <strong class="ms-1">Recent Transactions</strong> {# Added margin-start for the strong tag #}
+        <ul class="nav nav-pills flex-column mt-1"> {# Removed custom recenttx, using standard nav classes, added margin-top #}
             {% for trans in recent_transactions %}
-                <li>
-                    <a class="nav-link recent">[#{{trans.transaction_id}}]
-                    {{trans.amount|floatformat:0}}PLN
-                    {{trans.debit_account.account_id}} -> {{trans.credit_account.account_id}} 
-                    {% comment %} {{trans.description|truncatechars:30}} {% endcomment %}
-                </a>
-            </li>
+                <li class="nav-item"> {# Added nav-item class #}
+                    <a class="nav-link small" href="#"> {# Used small class for font, removed custom recent class #}
+                        [#{{trans.transaction_id}}] 
+                        {{trans.amount|floatformat:0}}PLN
+                        {{trans.debit_account.account_id}} -> {{trans.credit_account.account_id}}
+                    </a>
+                </li>
             {% empty %}
-                <li><a class="recent" href="#">No transactions yet.</a></li>
+                <li class="nav-item"><a class="nav-link small" href="#">No transactions yet.</a></li>
             {% endfor %}
-
         </ul>
     </li>
 </ul>
 <hr>
-<div class="dropdown">
-    <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-        <strong>Recent Transactions</strong>
-    </a>
-    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-        {% for trans in recent_transactions %}
-            <li><a class="dropdown-item" href="#">{{trans.description|truncatechars:30}}</a></li>
-        {% empty %}
-            <li><a class="dropdown-item" href="#">No transactions yet.</a></li>
-        {% endfor %}
-    </ul>
-</div>

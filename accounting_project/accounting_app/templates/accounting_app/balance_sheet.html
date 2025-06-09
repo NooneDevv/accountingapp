@@ -1,152 +1,161 @@
 {% extends 'accounting_app/base.html' %}
 
 {% block content %}
-<h1 class="h2">Generate Balance Sheet</h1>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Bilans</h1>
+</div>
 
-<form method="post" class="row g-3 align-items-end mb-4">
+<form method="post" class="row g-3 align-items-end mb-4 p-3 border rounded bg-light">
     {% csrf_token %}
-    <div class="col-auto">
-        <label for="id_end_date" class="form-label">Balance as of date:</label>
-        {{ form.end_date }}
+    <div class="col-md-4">
+        <label for="{{ form.end_date.id_for_label }}" class="form-label">Data bilansu:</label>
+        {{ form.end_date }} {# Assuming form.end_date renders with appropriate Bootstrap classes e.g. form-control #}
     </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Generate</button>
+    <div class="col-md-auto">
+        <button type="submit" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator-fill me-1" viewBox="0 0 16 16">
+                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5zm0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM10.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm-.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1z"/>
+            </svg>
+            Generuj
+        </button>
     </div>
 </form>
 
 {% if balance_sheet_data %}
-<h3 class="text-center">BILANS</h3>
-<p class="text-center">sporządzony na dzień: {{ end_date_str }}</p>
-
-<div class="row mt-4">
-    <!-- AKTYWA -->
-    <div class="col-6">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th colspan="2" class="text-center">AKTYWA</th>
-                    <th class="text-center">Stan na</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="fw-bold">A</td>
-                    <td class="fw-bold">Aktywa trwałe</td>
-                    <td class="text-end fw-bold">{{ balance_sheet_data.A.total|floatformat:2 }}</td>
-                </tr>
-                <tr>
-                    <td>I</td>
-                    <td>Urządzenia techniczne i maszyny</td>
-                    <td class="text-end">{{ balance_sheet_data.A.I|floatformat:2 }}</td>
-                </tr>
-                <tr>
-                    <td>II</td>
-                    <td>Środki transportu</td>
-                    <td class="text-end">{{ balance_sheet_data.A.II|floatformat:2 }}</td>
-                </tr>
-                <tr>
-                    <td>III</td>
-                    <td>Umorzenie urządzeń technicznych i maszyn</td>
-                    <td class="text-end">{{ balance_sheet_data.A.III|floatformat:2 }}</td>
-                </tr>
-                 <tr>
-                    <td>IV</td>
-                    <td>Umorzenie środków transportu</td>
-                    <td class="text-end">{{ balance_sheet_data.A.IV|floatformat:2 }}</td>
-                </tr>
-                 <tr>
-                <tr>
-                    <td class="fw-bold">B</td>
-                    <td class="fw-bold">Aktywa obrotowe</td>
-                    <td class="text-end fw-bold">{{ balance_sheet_data.B.total|floatformat:2 }}</td>
-                </tr>
-
-                <tr>
-                    <td>I</td>
-                    <td>Należności z tytułu dostaw i usług od pozostałych jednostek do 12 m-cy</td>
-                    <td class="text-end">{{ balance_sheet_data.B.I|floatformat:2 }}</td>
-                </tr>
-                <tr>
-                    <td>I</td>
-                    <td>Środki pieniężne w kasie</td>
-                    <td class="text-end">{{ balance_sheet_data.B.II|floatformat:2 }}</td>
-                </tr>
-                <tr>
-                    <td>III</td>
-                    <td>Środki pieniężne na r-kach bankowych</td>
-                    <td class="text-end">{{ balance_sheet_data.B.III|floatformat:2 }}</td>
-                </tr>
-
-                 <tr class="table-group-divider">
-                    <td colspan="2" class="fw-bold text-center">AKTYWA RAZEM</td>
-                    <td class="text-end fw-bold">{{ balance_sheet_data.total_assets|floatformat:2 }}</td>
-                </tr>
-            </tbody>
-        </table>
+<div class="card">
+    <div class="card-header text-center">
+        <h3 class="mb-0">BILANS</h3>
+        <p class="mb-0"><small>Na dzień: {{ end_date_str }}</small></p>
     </div>
+    <div class="card-body">
+        <div class="row mt-2">
+            <!-- AKTYWA -->
+            <div class="col-md-6">
+                <h4 class="text-center table-group-divider py-2">AKTYWA</h4>
+                <table class="table table-sm table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 10%;">Poz.</th>
+                            <th>Wyszczególnienie</th>
+                            <th class="text-end" style="width: 25%;">Kwota (zł)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="fw-bold">A</td>
+                            <td class="fw-bold">Aktywa trwałe</td>
+                            <td class="text-end fw-bold">{{ balance_sheet_data.A.total|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-3">I</td>
+                            <td>Urządzenia techniczne i maszyny</td>
+                            <td class="text-end">{{ balance_sheet_data.A.I|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-3">II</td>
+                            <td>Środki transportu</td>
+                            <td class="text-end">{{ balance_sheet_data.A.II|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-3">III</td>
+                            <td>Umorzenie urz. tech. i maszyn</td>
+                            <td class="text-end">{{ balance_sheet_data.A.III|floatformat:2 }}</td>
+                        </tr>
+                         <tr>
+                            <td class="ps-3">IV</td>
+                            <td>Umorzenie środków transportu</td>
+                            <td class="text-end">{{ balance_sheet_data.A.IV|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">B</td>
+                            <td class="fw-bold">Aktywa obrotowe</td>
+                            <td class="text-end fw-bold">{{ balance_sheet_data.B.total|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-3">I</td>
+                            <td>Należności z tyt. dostaw i usług (do 12 m-cy)</td>
+                            <td class="text-end">{{ balance_sheet_data.B.I|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-3">II</td>
+                            <td>Środki pieniężne w kasie</td>
+                            <td class="text-end">{{ balance_sheet_data.B.II|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-3">III</td>
+                            <td>Środki pieniężne na rachunkach</td>
+                            <td class="text-end">{{ balance_sheet_data.B.III|floatformat:2 }}</td>
+                        </tr>
+                         <tr class="table-group-divider">
+                            <td colspan="2" class="fw-bold text-center">AKTYWA RAZEM</td>
+                            <td class="text-end fw-bold table-secondary">{{ balance_sheet_data.total_assets|floatformat:2 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-    <!-- PASYWA -->
-    <div class="col-6">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th colspan="2" class="text-center">PASYWA</th>
-                    <th class="text-center">Stan na</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="fw-bold">A</td>
-                    <td class="fw-bold">Kapitał własny</td>
-                    <td class="text-end fw-bold">{{ balance_sheet_data.P_A.total|floatformat:2 }}</td>
-                </tr>
-                 <tr>
-                    <td>I</td>
-                    <td>Kapitał (fundusz) podstawowy</td>
-                    <td class="text-end">{{ balance_sheet_data.P_A.I|floatformat:2 }}</td>
-                </tr>
-                <tr>
-                    <td>VI</td>
-                    <td>Zysk (strata) netto</td>
-                    <td class="text-end">{{ balance_sheet_data.P_A.II|floatformat:2 }}</td>
-                </tr>               
-                <tr>
-                    <td class="fw-bold">B</td>
-                    <td class="fw-bold">Zobowiązania i rezerwy na zobowiązania</td>
-                    <td class="text-end fw-bold">{{ balance_sheet_data.P_B.total|floatformat:2 }}</td>
-                </tr> 
-                {% comment %} <tr>
-                    <td>III</td>
-                    <td>Zobowiązania krótkoterminowe</td>
-                    <td class="text-end">{{ balance_sheet_data.P_B.total|floatformat:2 }}</td>
-                </tr> {% endcomment %}
-                <tr>
-                    <td>2.A)</td>
-                    <td>Zobowiązania z tytułu dostaw i usług wobec pozostałych jednostek do 12 m-cy</td>
-                    <td class="text-end">{{ balance_sheet_data.P_B.I|floatformat:2 }}</td>
-                </tr>
-                <tr>
-                    <td>3.A)</td>
-                    <td>Kredyty bankowe krótkoterminowe</td>
-                    <td class="text-end">{{ balance_sheet_data.P_B.II|floatformat:2 }}</td>
-
-                <tr>
-                    <td>3.G)</td>
-                    <td>Zobowiązania z tytułu publicznoprawnych</td>
-                    <td class="text-end">{{ balance_sheet_data.P_B.III|floatformat:2 }}</td>
-                </tr>
-                <tr>
-                    <td>IV</td>
-                    <td>Zobowiązania z tytułu wynagrodzeń</td>
-                    <td class="text-end">{{ balance_sheet_data.P_B.IV|floatformat:2 }}</td>
-                </tr>
-                <tr class="table-group-divider">
-                    <td colspan="2" class="fw-bold text-center">PASYWA RAZEM</td>
-                    <td class="text-end fw-bold">{{ balance_sheet_data.total_liabilities_and_equity|floatformat:2 }}</td>
-                </tr>
-            </tbody>
-        </table>
+            <!-- PASYWA -->
+            <div class="col-md-6">
+                <h4 class="text-center table-group-divider py-2">PASYWA</h4>
+                <table class="table table-sm table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 10%;">Poz.</th>
+                            <th>Wyszczególnienie</th>
+                            <th class="text-end" style="width: 25%;">Kwota (zł)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="fw-bold">A</td>
+                            <td class="fw-bold">Kapitał (fundusz) własny</td>
+                            <td class="text-end fw-bold">{{ balance_sheet_data.P_A.total|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-3">I</td>
+                            <td>Kapitał (fundusz) podstawowy</td>
+                            <td class="text-end">{{ balance_sheet_data.P_A.I|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-3">II</td>
+                            <td>Zysk (strata) z lat ubiegłych</td>
+                            <td class="text-end">{{ balance_sheet_data.P_A.II|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-3">III</td>
+                            <td>Wynik finansowy netto (+/-)</td>
+                            <td class="text-end">{{ balance_sheet_data.P_A.III|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">B</td>
+                            <td class="fw-bold">Zobowiązania i rezerwy na zobowiązania</td>
+                            <td class="text-end fw-bold">{{ balance_sheet_data.P_B.total|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td class="ps-3">I</td>
+                            <td>Zobowiązania z tyt. dostaw i usług (do 12 m-cy)</td>
+                            <td class="text-end">{{ balance_sheet_data.P_B.I|floatformat:2 }}</td>
+                        </tr>
+                         <tr class="table-group-divider">
+                            <td colspan="2" class="fw-bold text-center">PASYWA RAZEM</td>
+                            <td class="text-end fw-bold table-secondary">{{ balance_sheet_data.total_liabilities_and_equity|floatformat:2 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+{% else %}
+    {% if request.method == "POST" %}
+        <div class="alert alert-info mt-4" role="alert">
+            Brak danych bilansu dla wybranej daty.
+        </div>
+    {% else %} {# Initial page load, no date selected yet #}
+        <div class="alert alert-secondary mt-4" role="alert">
+            Wybierz datę, aby wygenerować bilans.
+        </div>
+    {% endif %}
 {% endif %}
+
 {% endblock %}

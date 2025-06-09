@@ -2,16 +2,19 @@
 
 {% block content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Accounts</h1>
+    <h1 class="h2">Accounts Overview</h1> {# Slightly more descriptive title #}
     <div class="btn-toolbar mb-2 mb-md-0">
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addTransactionModal">
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addTransactionModal"> {# Changed to btn-primary for more emphasis #}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill me-1" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+            </svg>
             Add Transaction
         </button>
     </div>
 </div>
 
 {% for account_type, data in grouped_accounts.items %}
-    <h3 class="mt-4">{{ data.verbose_name }}</h3>
+    <h2 class="h4 mt-4 mb-3">{{ data.verbose_name }}</h2> {# Changed to h2 with class h4 for better hierarchy, added mb-3 #}
     <div class="row">
         {% for account in data.accounts %}
             <div class="col-md-6 col-lg-4 mb-4">
@@ -19,6 +22,8 @@
             </div>
         {% endfor %}
     </div>
+{% empty %}
+    <p class="text-muted">No accounts to display.</p> {# Added message for empty state #}
 {% endfor %}
 
 {% endblock %}

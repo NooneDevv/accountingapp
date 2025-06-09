@@ -4,6 +4,7 @@ from .models import Account, Transaction
 from .forms import TransactionForm, BalanceSheetDateForm
 from datetime import date
 from django.utils import timezone
+from django.http import JsonResponse # Added for the new view
 
 def accounts_view(request):
     accounts = Account.objects.all().order_by('name')
@@ -99,3 +100,16 @@ def add_transaction_view(request):
         if form.is_valid():
             form.save()
     return redirect('accounts') # Redirect back to the accounts page
+
+def get_account_balance_view(request):
+    account_id = request.GET.get('account_id')
+    balance = 0
+    account_name = ""
+    if account_id:
+        try:
+            account = Account.objects.get(pk=account_id)
+            balance = account.get_balance()
+            account_name = account.name
+        except Account.DoesNotExist:
+            return JsonResponse({'error': 'Account not found'}, status=404)
+    return JsonResponse({'account_id': account_id, 'balance': balance, 'account_name': account_name})
