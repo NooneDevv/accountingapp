@@ -5,8 +5,11 @@
         <h1 class="modal-title fs-5" id="addTransactionModalLabel">Add New Transaction</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
+   
       <form action="{% url 'add_transaction' %}" method="post">
         {% csrf_token %}
+        {% comment %}    
           <div class="mb-3 row">
             <label for="{{ transaction_form.debit_account.id_for_label }}" class="col-sm-3 col-form-label">Debit Account (Wn):</label>
             <div class="col-sm-9">
@@ -19,7 +22,9 @@
             <div class="col-sm-9">
               {{ transaction_form.credit_account }}
             </div>
-          </div>
+          </div> {% endcomment %}
+
+
         <div class="modal-body">
             {{ transaction_form.as_p }}
         </div>
