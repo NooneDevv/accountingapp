@@ -8,6 +8,7 @@ WORKDIR /src
 # RUN git clone https://github.com/NooneDevv/accountingapp.git .
 
 # YES?
+RUN GIT_TERMINAL_PROMPT=0 git clone https://github.com/NooneDevv/accountingapp.git .
 WORKDIR /src/accountingapp
 
 RUN pip install --upgrade pip && \
