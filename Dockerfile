@@ -37,11 +37,11 @@ RUN chown -R appuser:appuser /app
 USER appuser
 
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE 8000
 
 # The command to run migrations and start the Gunicorn server.
 # This listens on the $PORT from cloud run
-CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8080"]
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"]
 
 
 
