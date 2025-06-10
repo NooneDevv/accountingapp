@@ -1,20 +1,20 @@
 
-FROM python:3.9-slim as builder
+FROM python:3.12-slim as builder
 
 RUN apt-get update && apt-get install -y git
 
 WORKDIR /src
 
-# RUN git clone https://github.com/NooneDevv/accountingapp.git .
+RUN git clone https://github.com/NooneDevv/accountingapp.git .
 
 # YES?
-RUN GIT_TERMINAL_PROMPT=0 git clone https://github.com/NooneDevv/accountingapp.git .
-WORKDIR /src/accountingapp
+# RUN GIT_TERMINAL_PROMPT=0 git clone https://github.com/NooneDevv/accountingapp.git .
+WORKDIR /src/accounting_project
 
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir gunicorn -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
-FROM python:3.9-slim
+FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE=accounting_project.settings
@@ -23,13 +23,13 @@ RUN groupadd -r appuser && useradd -r -g appuser appuser
 
 WORKDIR /app
 
-COPY --from=builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
+COPY --from=builder /usr/local/lib/python3.12/site-packages/ /usr/local/lib/python3.12/site-packages/
 
 # This places the contents of 'accountingapp/' into our final '/app' directory
-COPY --from=builder /src/accountingapp /app
+COPY --from=builder /src/accounting_project /app
 
 # Run collectstatic to gather all static files.
-RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
 
 RUN chown -R appuser:appuser /app
 
@@ -41,7 +41,7 @@ EXPOSE 8000
 
 # The command to run migrations and start the Gunicorn server.
 # This listens on the $PORT from cloud run
-CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 2 accounting_project.wsgi:application"]
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py runserver"]
 
 
 
