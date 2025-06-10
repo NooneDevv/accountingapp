@@ -41,7 +41,7 @@ EXPOSE 8080
 
 # The command to run migrations and start the Gunicorn server.
 # This listens on the $PORT from cloud run
-CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py runserver"]
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8080"]
 
 
 
