@@ -5,9 +5,9 @@ RUN apt-get update && apt-get install -y git
 
 WORKDIR /src
 
-RUN git clone https://github.com/NooneDevv/accountingapp.git .
+# RUN git clone https://github.com/NooneDevv/accountingapp.git .
 
-
+# YES?
 WORKDIR /src/accountingapp
 
 RUN pip install --upgrade pip && \
