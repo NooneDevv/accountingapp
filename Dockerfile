@@ -37,7 +37,7 @@ RUN chown -R appuser:appuser /app
 USER appuser
 
 # Expose the port the app runs on
-EXPOSE 8000
+EXPOSE 8080
 
 # The command to run migrations and start the Gunicorn server.
 # This listens on the $PORT from cloud run
