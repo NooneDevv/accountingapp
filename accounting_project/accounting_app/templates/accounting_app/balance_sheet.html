@@ -148,5 +148,13 @@
         </table>
     </div>
 </div>
+
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <input type="hidden" name="end_date" value="{{ form.end_date.value|default:'' }}">
+    <button type="submit" name="download_pdf" value="true" class="btn btn-success">
+        Pobierz PDF
+    </button>
+</form>
 {% endif %}
 {% endblock %}
