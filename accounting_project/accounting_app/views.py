@@ -81,7 +81,7 @@ def balance_sheet_view(request):
             aktywa_trwale_II = get_bal('Środki transportu')
             aktywa_trwale_III = get_bal('Umorzenie urządzeń technicznych i maszyn')
             aktywa_trwale_IV = get_bal('Umorzenie środków transportu')
-            aktywa_trwale_total = sum([aktywa_trwale_I, aktywa_trwale_II, aktywa_trwale_III, aktywa_trwale_IV])
+            aktywa_trwale_total = (aktywa_trwale_I + aktywa_trwale_II) - (aktywa_trwale_III + aktywa_trwale_IV)
             
             aktywa_obrotowe_I = get_bal('Należności z tytułu dostaw i usług od pozostałych jednostek do 12 m-cy')
             aktywa_obrotowe_II = get_bal('Środki pieniężne w kasie')
@@ -196,3 +196,9 @@ def add_transaction_view(request):
         if form.is_valid():
             form.save()
     return redirect('accounts') # Redirect back to the accounts page
+
+def clear_all_transactions_view(request):
+    if request.method == 'POST':
+        Transaction.objects.all().delete()
+        return redirect('transaction_history')
+    return redirect('transaction_history') # Or some other appropriate page if accessed via GET
