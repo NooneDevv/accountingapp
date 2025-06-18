@@ -7,15 +7,24 @@
 /* header */
 .app-header {
     margin-bottom: 1rem;
+    background-color: gray;
+}
+header {
+    display:flex;
 }
 
 .app-header h1 {
     font-size: 1.75rem;
+    font-weight: 700;
     margin-bottom: 0;
+    float:left;
+}
+.dark-mode-div {
+    float:right;
 }
 
-/* account styles */
 
+/* account styles */
 .t-account-table {
     margin-bottom: 1.5rem;
 }
@@ -38,15 +47,6 @@
     font-size: 0.9rem;
 }
 
-.highlight {
-    font-weight: bold;
-}
-
-.highlight td {
-    background-color: #cfe2ff;
-    font-weight: bold;
-}
-
 .recenttx {
     color: #212529;
     font-size: 0.875rem;
@@ -63,14 +63,4 @@
 }
 .highlight td{
     background-color: rgb(130, 208, 236); 
-    font-weight: bold;
-}
-
-.recenttx { 
-    color:black;
-    font-size:small;
-}
-.account-header {
-    font-size:small;
-
 }

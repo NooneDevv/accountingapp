@@ -8,10 +8,14 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'accounting_app/css/style.css' %}">
 </head>
-<body>
-    <header class="app-header bg-dark text-white p-3">
+<body data-bs-theme="light">
+    <header class="app-header p-3 flex-container">
         <div class="container-fluid">
             <h1>Accounting App</h1>
+        </div>
+        <div class"container-fluid dark-mode-div">
+
+            <button id="theme-toggler" class="btn btn-secondary bg-gray">Toggle Dark Mode</button>
         </div>
     </header>
     
@@ -31,5 +35,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'accounting_app/js/main.js' %}"></script>
+    <script src="{% static 'accounting_app/js/dark_mode.js' %}"></script>
+
 </body>
 </html>
